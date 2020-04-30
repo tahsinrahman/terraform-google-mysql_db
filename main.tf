@@ -1,6 +1,5 @@
 terraform {
   required_version = "0.12.24" # see https://releases.hashicorp.com/terraform/
-  experiments      = [variable_validation]
 }
 
 provider "google" {
@@ -8,7 +7,7 @@ provider "google" {
 }
 
 locals {
-  db_instance_name = var.db_instance_name == null ? format("mysql-%s-%s", var.name_padding, var.tf_env) : var.db_instance_name
+  db_instance_name = var.db_instance_name == null ? format("mysql-%s-%s", var.name_padding, var.name_suffix) : var.db_instance_name
   authorized_networks = [
     for authorized_network in var.authorized_networks : {
       name  = authorized_network.display_name
