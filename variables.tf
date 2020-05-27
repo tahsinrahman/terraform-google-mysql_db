@@ -12,7 +12,7 @@ variable "name_suffix" {
 }
 
 variable "private_network" {
-  description = "A VPC network (self-link) that can access the MySQL instance via private IP. Can set to 'null' if 'ipv4_enabled' is set to 'true'."
+  description = "A VPC network (self-link) that can access the MySQL instance via private IP. Can set to 'null' if 'public_access' is set to 'true'."
   type        = string
 }
 
@@ -111,8 +111,8 @@ variable "authorized_networks" {
   default = []
 }
 
-variable "ipv4_enabled" {
-  description = "Whether public IPv4 address should be assigned to the MySQL instance. If set to 'false' then 'var.private_network' must be defined."
+variable "public_access" {
+  description = "Whether public IPv4 address should be assigned to the MySQL instance(s). If set to 'false' then 'var.private_network' must be defined."
   type        = bool
   default     = false
 }
