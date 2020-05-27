@@ -72,12 +72,6 @@ variable "instance_size" {
   default     = "db-f1-micro"
 }
 
-variable "highly_available" {
-  description = "Whether the MySQL instance should be highly available (REGIONAL) or single zone. Value of 'true' requires 'var.pit_recovery_enabled' to be 'true'."
-  type        = bool
-  default     = false
-}
-
 variable "backup_enabled" {
   description = "Specify whether backups should be enabled for the MySQL instance."
   type        = bool
@@ -86,6 +80,12 @@ variable "backup_enabled" {
 
 variable "pit_recovery_enabled" {
   description = "Specify whether Point-In-Time recoevry should be enabled for the MySQL instance. It uses the \"binary log\" feature of CloudSQL. Value of 'true' requires 'var.backup_enabled' to be 'true'."
+  type        = bool
+  default     = false
+}
+
+variable "highly_available" {
+  description = "Whether the MySQL instance should be highly available (REGIONAL) or single zone. Value of 'true' requires 'var.pit_recovery_enabled' to be 'true'."
   type        = bool
   default     = false
 }
