@@ -12,7 +12,7 @@ variable "name_suffix" {
 }
 
 variable "private_network" {
-  description = "A VPC network (self-link) that can access the MySQL instance via private IP. Can set to 'null' if 'public_access' is set to 'true'."
+  description = "A VPC network (self-link) that can access the MySQL instance via private IP. Can set to \"null\" if \"var.public_access\" is set to \"true\"."
   type        = string
 }
 
