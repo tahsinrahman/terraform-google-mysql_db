@@ -8,7 +8,7 @@ provider "google" {
 }
 
 locals {
-  db_instance_name = var.db_instance_name == null ? format("mysql-%s-%s", var.name_padding, var.name_suffix) : var.db_instance_name
+  db_instance_name = var.db_instance_name == null ? format("mysql-%s-%s", var.master_name_padding, var.name_suffix) : var.db_instance_name
   authorized_networks = [
     for authorized_network in var.authorized_networks : {
       name  = authorized_network.display_name

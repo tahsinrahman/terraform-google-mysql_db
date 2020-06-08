@@ -30,7 +30,7 @@ variable "user_name" {
   default     = "default"
 }
 
-variable "name_padding" {
+variable "master_name_padding" {
   description = "Portion of name to be generated for the \"Master\" instance. The same name of a deleted master instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes."
   type        = string
   default     = "v1"
