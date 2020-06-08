@@ -24,6 +24,7 @@ variable "module_depends_on" {
 # ----------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # ----------------------------------------------------------------------------------------------------------------------
+
 variable "user_name" {
   description = "The name of the default database user."
   type        = string
@@ -121,10 +122,4 @@ variable "db_name" {
   description = "Name of the default database to be created."
   type        = string
   default     = "default"
-}
-
-variable "db_instance_name" {
-  description = "The name of the database instance."
-  type        = string
-  default     = null
 }

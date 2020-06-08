@@ -8,7 +8,7 @@ provider "google" {
 }
 
 locals {
-  db_instance_name = var.db_instance_name == null ? format("mysql-%s-%s", var.master_name_padding, var.name_suffix) : var.db_instance_name
+  instance_name = format("mysql-%s-%s", var.master_name_padding, var.name_suffix)
   authorized_networks = [
     for authorized_network in var.authorized_networks : {
       name  = authorized_network.display_name
@@ -29,7 +29,7 @@ module "google_mysql_db" {
   version           = "3.2.0"
   module_depends_on = concat(var.module_depends_on, [google_project_service.cloudsql_api.id])
   project_id        = data.google_client_config.google_client.project
-  name              = local.db_instance_name
+  name              = local.instance_name
   db_name           = var.db_name
   database_version  = var.db_version
   db_collation      = var.db_collation
