@@ -80,7 +80,7 @@ module "google_mysql_db" {
   }
 
   # failover replica settings
-  failover_replica             = var.failover_replica_enabled
+  failover_replica             = var.failover_enabled
   failover_replica_name_suffix = var.name_padding_failover
   failover_replica_zone        = "c"
   failover_replica_tier        = var.instance_size_failover

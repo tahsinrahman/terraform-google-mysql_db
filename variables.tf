@@ -109,7 +109,7 @@ variable "read_replica_size" {
   default     = 0
 }
 
-variable "failover_replica_enabled" {
+variable "failover_enabled" {
   description = "Specify whether failover replicas should be enabled for the MySQL instance. Value of 'true' requires 'var.pit_recovery_enabled' to be 'true'."
   type        = bool
   default     = false
