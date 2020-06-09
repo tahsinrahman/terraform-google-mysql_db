@@ -37,7 +37,7 @@ module "google_mysql_db" {
   region            = data.google_client_config.google_client.region
   zone              = "a"
   availability_type = var.highly_available ? "REGIONAL" : null
-  tier              = var.instance_size
+  tier              = var.instance_size_master
   user_name         = var.user_name
 
   ip_configuration = {
@@ -58,7 +58,7 @@ module "google_mysql_db" {
   read_replica_size        = var.read_replica_size
   read_replica_name_suffix = var.replica_name_padding
   read_replica_zones       = "b,c"
-  read_replica_tier        = var.instance_size
+  read_replica_tier        = var.instance_size_replica
   read_replica_configuration = {
     connect_retry_interval    = null
     dump_file_path            = null
@@ -83,7 +83,7 @@ module "google_mysql_db" {
   failover_replica             = var.failover_replica_enabled
   failover_replica_name_suffix = var.failover_name_padding
   failover_replica_zone        = "c"
-  failover_replica_tier        = var.instance_size
+  failover_replica_tier        = var.instance_size_failover
   failover_replica_configuration = {
     connect_retry_interval    = null
     dump_file_path            = null
