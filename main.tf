@@ -8,7 +8,7 @@ provider "google" {
 }
 
 locals {
-  instance_name = format("mysql-%s-%s", var.master_name_padding, var.name_suffix)
+  instance_name = format("mysql-%s-%s", var.name_padding_master, var.name_suffix)
   authorized_networks = [
     for authorized_network in var.authorized_networks : {
       name  = authorized_network.display_name
@@ -56,7 +56,7 @@ module "google_mysql_db" {
 
   # read replica settings
   read_replica_size        = var.read_replica_size
-  read_replica_name_suffix = var.replica_name_padding
+  read_replica_name_suffix = var.name_padding_replica
   read_replica_zones       = "b,c"
   read_replica_tier        = var.instance_size_replica
   read_replica_configuration = {
@@ -81,7 +81,7 @@ module "google_mysql_db" {
 
   # failover replica settings
   failover_replica             = var.failover_replica_enabled
-  failover_replica_name_suffix = var.failover_name_padding
+  failover_replica_name_suffix = var.name_padding_failover
   failover_replica_zone        = "c"
   failover_replica_tier        = var.instance_size_failover
   failover_replica_configuration = {
