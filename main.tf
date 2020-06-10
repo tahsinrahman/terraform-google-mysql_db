@@ -38,6 +38,9 @@ module "google_mysql_db" {
   zone              = "a"
   availability_type = var.highly_available ? "REGIONAL" : null
   tier              = var.instance_size_master
+  create_timeout    = var.db_timeout
+  update_timeout    = var.db_timeout
+  delete_timeout    = var.db_timeout
   user_name         = var.user_name
 
   ip_configuration = {

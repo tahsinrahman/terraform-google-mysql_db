@@ -135,3 +135,9 @@ variable "db_name" {
   type        = string
   default     = "default"
 }
+
+variable "db_timeout" {
+  description = "How long a database operation is allowed to take before being considered a failure."
+  type        = string
+  default     = "15m"
+}
