@@ -8,7 +8,9 @@ provider "google" {
 }
 
 locals {
-  instance_name = format("mysql-%s-%s", var.name_padding_master, var.name_suffix)
+  master_instance_name_suffix  = format("%s-%s", var.name_master_instance, var.name_suffix)
+  failover_replica_name_suffix = format("-%s", var.name_failover_replica)
+  read_replica_name_suffix     = format("-%s-", var.name_read_replica)
   authorized_networks = [
     for authorized_network in var.authorized_networks : {
       name  = authorized_network.display_name
@@ -29,7 +31,7 @@ module "google_mysql_db" {
   version           = "3.2.0"
   module_depends_on = concat(var.module_depends_on, [google_project_service.cloudsql_api.id])
   project_id        = data.google_client_config.google_client.project
-  name              = local.instance_name
+  name              = format("mysql-%s", local.master_instance_name_suffix)
   db_name           = var.db_name
   database_version  = var.db_version
   db_collation      = var.db_collation
@@ -59,7 +61,7 @@ module "google_mysql_db" {
 
   # read replica settings
   read_replica_size        = var.read_replica_size
-  read_replica_name_suffix = var.name_padding_replica
+  read_replica_name_suffix = local.read_replica_name_suffix
   read_replica_zones       = "b,c"
   read_replica_tier        = var.instance_size_replica
   read_replica_configuration = {
@@ -84,7 +86,7 @@ module "google_mysql_db" {
 
   # failover replica settings
   failover_replica             = var.failover_enabled
-  failover_replica_name_suffix = var.name_padding_failover
+  failover_replica_name_suffix = local.failover_replica_name_suffix
   failover_replica_zone        = "c"
   failover_replica_tier        = var.instance_size_failover
   failover_replica_configuration = {

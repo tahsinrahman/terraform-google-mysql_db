@@ -31,22 +31,22 @@ variable "user_name" {
   default     = "default"
 }
 
-variable "name_padding_master" {
+variable "name_master_instance" {
   description = "Portion of name to be generated for the \"Master\" instance. The same name of a deleted master instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes."
   type        = string
   default     = "v1"
 }
 
-variable "name_padding_failover" {
+variable "name_failover_replica" {
   description = "Portion of name to be generated for the \"Failover\" instance. The same name of a deleted failover instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes. Maintain the given format (with a leading hyphen) for readability in GCP console."
   type        = string
-  default     = "-v1"
+  default     = "v1"
 }
 
-variable "name_padding_replica" {
+variable "name_read_replica" {
   description = "Portion of name to be generated for the \"ReadReplica\" instances. The same name of a deleted read-replica instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes. Maintain the given format (with leading & trailing hyphens) for readability in GCP console."
   type        = string
-  default     = "-v1-"
+  default     = "v1"
 }
 
 variable "db_version" {
