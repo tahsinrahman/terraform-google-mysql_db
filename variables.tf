@@ -44,7 +44,7 @@ variable "name_padding_failover" {
 }
 
 variable "name_padding_replica" {
-  description = "Portion of name to be generated for the \"ReadReplica\" instance. The same name of a deleted read-replica instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes. Maintain the given format (with leading & trailing hyphens) for readability in GCP console."
+  description = "Portion of name to be generated for the \"ReadReplica\" instances. The same name of a deleted read-replica instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes. Maintain the given format (with leading & trailing hyphens) for readability in GCP console."
   type        = string
   default     = "-v1-"
 }
