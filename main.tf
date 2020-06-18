@@ -12,7 +12,7 @@ locals {
   failover_replica_name_suffix = format("-%s", var.name_failover_replica)
   read_replica_name_suffix     = format("-%s-", var.name_read_replica)
   authorized_networks = [
-    for authorized_network in var.authorized_networks : {
+    for authorized_network in var.authorized_networks_master_instance : {
       name  = authorized_network.display_name
       value = authorized_network.cidr_block
     }
