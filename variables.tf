@@ -12,7 +12,7 @@ variable "name_suffix" {
 }
 
 variable "private_network" {
-  description = "A VPC network (self-link) that can access the MySQL instance via private IP. Can set to \"null\" if \"var.public_access_master_instance\" is set to \"true\"."
+  description = "A VPC network (self-link) that can access the MySQL instance via private IP. Can set to \"null\" if any of \"var.public_access_*\" is set to \"true\"."
   type        = string
 }
 
@@ -126,6 +126,18 @@ variable "authorized_networks" {
 
 variable "public_access_master_instance" {
   description = "Whether public IPv4 address should be assigned to the MySQL master instance. If set to 'false' then 'var.private_network' must be defined."
+  type        = bool
+  default     = false
+}
+
+variable "public_access_read_replica" {
+  description = "Whether public IPv4 address should be assigned to the MySQL read-replica instance(s). If set to 'false' then 'var.private_network' must be defined."
+  type        = bool
+  default     = false
+}
+
+variable "public_access_failover_replica" {
+  description = "Whether public IPv4 address should be assigned to the MySQL failover replica instance. If set to 'false' then 'var.private_network' must be defined."
   type        = bool
   default     = false
 }

@@ -79,7 +79,7 @@ module "google_mysql_db" {
   }
   read_replica_ip_configuration = {
     authorized_networks = local.authorized_networks
-    ipv4_enabled        = var.public_access
+    ipv4_enabled        = var.public_access_read_replica
     private_network     = var.private_network
     require_ssl         = null
   }
@@ -104,7 +104,7 @@ module "google_mysql_db" {
   }
   failover_replica_ip_configuration = {
     authorized_networks = local.authorized_networks
-    ipv4_enabled        = var.public_access
+    ipv4_enabled        = var.public_access_failover_replica
     private_network     = var.private_network
     require_ssl         = null
   }
