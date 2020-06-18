@@ -103,7 +103,7 @@ variable "highly_available" {
   default     = false
 }
 
-variable "read_replica_size" {
+variable "read_replica_count" {
   description = "Specify the number of read replicas for the MySQL instance. Value greater than 0 requires 'var.pit_recovery_enabled' to be 'true'."
   type        = number
   default     = 0

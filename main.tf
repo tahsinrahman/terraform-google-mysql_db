@@ -60,7 +60,7 @@ module "google_mysql_db" {
   }
 
   # read replica settings
-  read_replica_size        = var.read_replica_size
+  read_replica_size        = var.read_replica_count
   read_replica_name_suffix = local.read_replica_name_suffix
   read_replica_zones       = "b,c"
   read_replica_tier        = var.instance_size_replica
