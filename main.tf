@@ -47,7 +47,7 @@ module "google_mysql_db" {
 
   ip_configuration = {
     authorized_networks = local.authorized_networks
-    ipv4_enabled        = var.public_access
+    ipv4_enabled        = var.public_access_master_instance
     private_network     = var.private_network
     require_ssl         = null
   }
