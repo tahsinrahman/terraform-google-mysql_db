@@ -23,6 +23,12 @@ locals {
       value = authorized_network.cidr_block
     }
   ]
+  failover_replica_authorized_networks = [
+    for authorized_network in var.authorized_networks_failover_replica : {
+      name  = authorized_network.display_name
+      value = authorized_network.cidr_block
+    }
+  ]
 }
 
 data "google_client_config" "google_client" {}
@@ -109,7 +115,7 @@ module "google_mysql_db" {
     verify_server_certificate = null
   }
   failover_replica_ip_configuration = {
-    authorized_networks = []
+    authorized_networks = local.failover_replica_authorized_networks
     ipv4_enabled        = var.public_access_failover_replica
     private_network     = var.private_network
     require_ssl         = null

@@ -133,6 +133,15 @@ variable "authorized_networks_read_replica" {
   default = []
 }
 
+variable "authorized_networks_failover_replica" {
+  description = "External networks that can access the MySQL FailoverReplica instance through HTTPS."
+  type = list(object({
+    display_name = string
+    cidr_block   = string
+  }))
+  default = []
+}
+
 variable "public_access_master_instance" {
   description = "Whether public IPv4 address should be assigned to the MySQL master instance. If set to 'false' then 'var.private_network' must be defined."
   type        = bool
