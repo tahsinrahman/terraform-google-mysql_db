@@ -17,6 +17,12 @@ locals {
       value = authorized_network.cidr_block
     }
   ]
+  read_replica_authorized_networks = [
+    for authorized_network in var.authorized_networks_read_replica : {
+      name  = authorized_network.display_name
+      value = authorized_network.cidr_block
+    }
+  ]
 }
 
 data "google_client_config" "google_client" {}
@@ -78,7 +84,7 @@ module "google_mysql_db" {
     verify_server_certificate = null
   }
   read_replica_ip_configuration = {
-    authorized_networks = []
+    authorized_networks = local.read_replica_authorized_networks
     ipv4_enabled        = var.public_access_read_replica
     private_network     = var.private_network
     require_ssl         = null
