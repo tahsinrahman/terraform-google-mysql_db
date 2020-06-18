@@ -115,8 +115,26 @@ variable "failover_enabled" {
   default     = false
 }
 
-variable "authorized_networks" {
-  description = "External networks that can access the MySQL databases through HTTPS."
+variable "authorized_networks_master_instance" {
+  description = "External networks that can access the MySQL master instance through HTTPS."
+  type = list(object({
+    display_name = string
+    cidr_block   = string
+  }))
+  default = []
+}
+
+variable "authorized_networks_read_replica" {
+  description = "External networks that can access the MySQL ReadReplica instance(s) through HTTPS."
+  type = list(object({
+    display_name = string
+    cidr_block   = string
+  }))
+  default = []
+}
+
+variable "authorized_networks_failover_replica" {
+  description = "External networks that can access the MySQL FailoverReplica instance through HTTPS."
   type = list(object({
     display_name = string
     cidr_block   = string

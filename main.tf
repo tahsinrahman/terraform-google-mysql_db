@@ -11,8 +11,20 @@ locals {
   master_instance_name_suffix  = format("%s-%s", var.name_master_instance, var.name_suffix)
   failover_replica_name_suffix = format("-%s", var.name_failover_replica)
   read_replica_name_suffix     = format("-%s-", var.name_read_replica)
-  authorized_networks = [
-    for authorized_network in var.authorized_networks : {
+  master_authorized_networks = [
+    for authorized_network in var.authorized_networks_master_instance : {
+      name  = authorized_network.display_name
+      value = authorized_network.cidr_block
+    }
+  ]
+  read_replica_authorized_networks = [
+    for authorized_network in var.authorized_networks_read_replica : {
+      name  = authorized_network.display_name
+      value = authorized_network.cidr_block
+    }
+  ]
+  failover_replica_authorized_networks = [
+    for authorized_network in var.authorized_networks_failover_replica : {
       name  = authorized_network.display_name
       value = authorized_network.cidr_block
     }
@@ -46,7 +58,7 @@ module "google_mysql_db" {
   user_name         = var.user_name
 
   ip_configuration = {
-    authorized_networks = local.authorized_networks
+    authorized_networks = local.master_authorized_networks
     ipv4_enabled        = var.public_access_master_instance
     private_network     = var.private_network
     require_ssl         = null
@@ -78,7 +90,7 @@ module "google_mysql_db" {
     verify_server_certificate = null
   }
   read_replica_ip_configuration = {
-    authorized_networks = local.authorized_networks
+    authorized_networks = local.read_replica_authorized_networks
     ipv4_enabled        = var.public_access_read_replica
     private_network     = var.private_network
     require_ssl         = null
@@ -103,7 +115,7 @@ module "google_mysql_db" {
     verify_server_certificate = null
   }
   failover_replica_ip_configuration = {
-    authorized_networks = local.authorized_networks
+    authorized_networks = local.failover_replica_authorized_networks
     ipv4_enabled        = var.public_access_failover_replica
     private_network     = var.private_network
     require_ssl         = null
