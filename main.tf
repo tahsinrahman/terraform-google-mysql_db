@@ -121,3 +121,10 @@ module "google_mysql_db" {
     require_ssl         = null
   }
 }
+
+resource "google_project_iam_member" "cloudsql_proxy_user" {
+  count      = length(var.sql_proxy_user_groups)
+  role       = "roles/cloudsql.client" # see https://cloud.google.com/sql/docs/mysql/quickstart-proxy-test#before-you-begin
+  member     = "group:${var.sql_proxy_user_groups[count.index]}"
+  depends_on = [google_project_service.cloudsql_api]
+}

@@ -171,3 +171,9 @@ variable "db_timeout" {
   type        = string
   default     = "15m"
 }
+
+variable "sql_proxy_user_groups" {
+  description = "List of usergroup emails that maybe allowed to connect with the database using CloudSQL Proxy. Connecting via CLoudSQL proxy from remote/localhost requires \"var.public_access_*\" to be set to \"true\" (for whichever of master/replica/failover instances you want to connect to). See https://cloud.google.com/sql/docs/mysql/sql-proxy#what_the_proxy_provides"
+  type        = list(string)
+  default     = []
+}
