@@ -67,19 +67,19 @@ variable "db_collation" {
   default     = "utf8_general_ci"
 }
 
-variable "instance_size_master" {
+variable "instance_size_master_instance" {
   description = "The machine type/size of \"Master\" instance. See https://cloud.google.com/sql/pricing#2nd-gen-pricing."
   type        = string
   default     = "db-f1-micro"
 }
 
-variable "instance_size_replica" {
+variable "instance_size_read_replica" {
   description = "The machine type/size of \"ReadReplica\" instances. See https://cloud.google.com/sql/pricing#2nd-gen-pricing."
   type        = string
   default     = "db-f1-micro"
 }
 
-variable "instance_size_failover" {
+variable "instance_size_failover_replica" {
   description = "The machine type/size of \"Failover\" instance. See https://cloud.google.com/sql/pricing#2nd-gen-pricing."
   type        = string
   default     = "db-f1-micro"
