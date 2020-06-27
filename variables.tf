@@ -37,14 +37,14 @@ variable "name_master_instance" {
   default     = "v1"
 }
 
-variable "name_failover_replica" {
-  description = "Portion of name to be generated for the \"Failover\" instance. The same name of a deleted failover instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes."
+variable "name_read_replica" {
+  description = "Portion of name to be generated for the \"ReadReplica\" instances. The same name of a deleted read-replica instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes."
   type        = string
   default     = "v1"
 }
 
-variable "name_read_replica" {
-  description = "Portion of name to be generated for the \"ReadReplica\" instances. The same name of a deleted read-replica instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes."
+variable "name_failover_replica" {
+  description = "Portion of name to be generated for the \"Failover\" instance. The same name of a deleted failover instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes."
   type        = string
   default     = "v1"
 }
@@ -73,14 +73,14 @@ variable "instance_size_master" {
   default     = "db-f1-micro"
 }
 
-variable "instance_size_failover" {
-  description = "The machine type/size of \"Failover\" instance. See https://cloud.google.com/sql/pricing#2nd-gen-pricing."
+variable "instance_size_replica" {
+  description = "The machine type/size of \"ReadReplica\" instances. See https://cloud.google.com/sql/pricing#2nd-gen-pricing."
   type        = string
   default     = "db-f1-micro"
 }
 
-variable "instance_size_replica" {
-  description = "The machine type/size of \"ReadReplica\" instances. See https://cloud.google.com/sql/pricing#2nd-gen-pricing."
+variable "instance_size_failover" {
+  description = "The machine type/size of \"Failover\" instance. See https://cloud.google.com/sql/pricing#2nd-gen-pricing."
   type        = string
   default     = "db-f1-micro"
 }

@@ -45,9 +45,9 @@ module "google_mysql_db" {
   project_id        = data.google_client_config.google_client.project
   name              = format("mysql-%s", local.master_instance_name_suffix)
   db_name           = var.db_name
-  database_version  = var.db_version
   db_collation      = var.db_collation
   db_charset        = var.db_charset
+  database_version  = var.db_version
   region            = data.google_client_config.google_client.region
   zone              = "a"
   availability_type = var.highly_available ? "REGIONAL" : null
@@ -56,7 +56,6 @@ module "google_mysql_db" {
   update_timeout    = var.db_timeout
   delete_timeout    = var.db_timeout
   user_name         = var.user_name
-
   ip_configuration = {
     authorized_networks = local.master_authorized_networks
     ipv4_enabled        = var.public_access_master_instance
