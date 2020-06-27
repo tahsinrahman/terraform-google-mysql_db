@@ -103,6 +103,24 @@ variable "disk_size_gb_failover_replica" {
   default     = 10
 }
 
+variable "disk_auto_resize_master_instance" {
+  description = "Whether to increase disk storage size of the master instance automatically. Increased storage size is permanent. Google charges by storage size whether that storage size is utilized or not. Recommended to set to \"true\" for production workloads."
+  type        = bool
+  default     = false
+}
+
+variable "disk_auto_resize_read_replica" {
+  description = "Whether to increase disk storage size of the read replica instance(s) automatically. Increased storage size is permanent. Google charges by storage size whether that storage size is utilized or not. Recommended to set to \"true\" for production workloads."
+  type        = bool
+  default     = false
+}
+
+variable "disk_auto_resize_failover_replica" {
+  description = "Whether to increase disk storage size of the failover replica instance automatically. Increased storage size is permanent. Google charges by storage size whether that storage size is utilized or not. Recommended to set to \"true\" for production workloads."
+  type        = bool
+  default     = false
+}
+
 variable "backup_enabled" {
   description = "Specify whether backups should be enabled for the MySQL instance."
   type        = bool

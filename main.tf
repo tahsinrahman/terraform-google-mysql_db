@@ -53,6 +53,7 @@ module "google_mysql_db" {
   availability_type = var.highly_available ? "REGIONAL" : null
   tier              = var.instance_size_master
   disk_size         = var.disk_size_gb_master_instance
+  disk_autoresize   = var.disk_auto_resize_master_instance
   create_timeout    = var.db_timeout
   update_timeout    = var.db_timeout
   delete_timeout    = var.db_timeout
@@ -77,6 +78,7 @@ module "google_mysql_db" {
   read_replica_zones       = "b,c"
   read_replica_tier        = var.instance_size_replica
   read_replica_disk_size   = var.disk_size_gb_read_replica
+  read_replica_disk_autoresize = var.disk_auto_resize_read_replica
   read_replica_configuration = {
     connect_retry_interval    = null
     dump_file_path            = null
@@ -103,6 +105,7 @@ module "google_mysql_db" {
   failover_replica_zone        = "c"
   failover_replica_tier        = var.instance_size_failover
   failover_replica_disk_size   = var.disk_size_gb_failover_replica
+  failover_replica_disk_autoresize = var.disk_auto_resize_failover_replica
   failover_replica_configuration = {
     connect_retry_interval    = null
     dump_file_path            = null
