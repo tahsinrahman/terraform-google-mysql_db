@@ -85,6 +85,24 @@ variable "instance_size_failover" {
   default     = "db-f1-micro"
 }
 
+variable "disk_size_gb_master_instance" {
+  description = "Disk size for the master instance in Giga Bytes."
+  type        = string
+  default     = 10
+}
+
+variable "disk_size_gb_read_replica" {
+  description = "Disk size for the read replica instance(s) in Giga Bytes."
+  type        = string
+  default     = 10
+}
+
+variable "disk_size_gb_failover_replica" {
+  description = "Disk size for the failover replica instance in Giga Bytes."
+  type        = string
+  default     = 10
+}
+
 variable "backup_enabled" {
   description = "Specify whether backups should be enabled for the MySQL instance."
   type        = bool
