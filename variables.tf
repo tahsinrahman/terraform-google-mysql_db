@@ -196,6 +196,24 @@ variable "public_access_failover_replica" {
   default     = false
 }
 
+variable "db_flags_master_instance" {
+  description = "The database flags applied to the master instance. See https://cloud.google.com/sql/docs/mysql/flags"
+  type        = map(string)
+  default     = {}
+}
+
+variable "db_flags_read_replica" {
+  description = "The database flags applied to the read replica instances. See https://cloud.google.com/sql/docs/mysql/flags"
+  type        = map(string)
+  default     = {}
+}
+
+variable "db_flags_failover_replica" {
+  description = "The database flags applied to the failover replica instance. See https://cloud.google.com/sql/docs/mysql/flags"
+  type        = map(string)
+  default     = {}
+}
+
 variable "db_name" {
   description = "Name of the default database to be created."
   type        = string

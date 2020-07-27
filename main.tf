@@ -58,6 +58,7 @@ module "google_mysql_db" {
   update_timeout    = var.db_timeout
   delete_timeout    = var.db_timeout
   user_name         = var.user_name
+  database_flags    = var.db_flags_master_instance
   ip_configuration = {
     authorized_networks = local.master_authorized_networks
     ipv4_enabled        = var.public_access_master_instance
@@ -79,6 +80,7 @@ module "google_mysql_db" {
   read_replica_tier            = var.instance_size_read_replica
   read_replica_disk_size       = var.disk_size_gb_read_replica
   read_replica_disk_autoresize = var.disk_auto_resize_read_replica
+  read_replica_database_flags  = var.db_flags_read_replica
   read_replica_configuration = {
     connect_retry_interval    = null
     dump_file_path            = null
@@ -106,6 +108,7 @@ module "google_mysql_db" {
   failover_replica_tier            = var.instance_size_failover_replica
   failover_replica_disk_size       = var.disk_size_gb_failover_replica
   failover_replica_disk_autoresize = var.disk_auto_resize_failover_replica
+  failover_replica_database_flags  = var.db_flags_failover_replica
   failover_replica_configuration = {
     connect_retry_interval    = null
     dump_file_path            = null
