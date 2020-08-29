@@ -16,11 +16,6 @@ variable "private_network" {
   type        = string
 }
 
-variable "module_depends_on" {
-  description = "Create explicit dependency of this module on values from other modules(s) and/or resource(s). Usually, MySQL requires a dependency on VPC's peering with Google Services."
-  type        = list(string)
-}
-
 # ----------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # ----------------------------------------------------------------------------------------------------------------------
