@@ -36,7 +36,7 @@ resource "google_project_service" "cloudsql_api" {
 
 module "google_mysql_db" {
   source            = "GoogleCloudPlatform/sql-db/google//modules/mysql"
-  version           = "3.2.0"
+  version           = "4.0.0"
   module_depends_on = concat(var.module_depends_on, [google_project_service.cloudsql_api.id])
   project_id        = data.google_client_config.google_client.project
   name              = format("mysql-%s", local.master_instance_name_suffix)
@@ -73,34 +73,25 @@ module "google_mysql_db" {
   }
 
   # read replica settings
-  read_replica_size            = var.read_replica_count
-  read_replica_name_suffix     = local.read_replica_name_suffix
-  read_replica_zones           = var.zone_read_replica
-  read_replica_tier            = var.instance_size_read_replica
-  read_replica_disk_size       = var.disk_size_gb_read_replica
-  read_replica_disk_type       = "PD_SSD"
-  read_replica_disk_autoresize = var.disk_auto_resize_read_replica
-  read_replica_database_flags  = local.db_flags_read_replica
-  read_replica_user_labels     = var.user_labels_read_replica
-  read_replica_configuration = {
-    connect_retry_interval    = null
-    dump_file_path            = null
-    ca_certificate            = null
-    client_certificate        = null
-    client_key                = null
-    failover_target           = false
-    master_heartbeat_period   = null
-    password                  = null
-    ssl_cipher                = null
-    username                  = null
-    verify_server_certificate = null
-  }
-  read_replica_ip_configuration = {
-    authorized_networks = local.read_replica_authorized_networks
-    ipv4_enabled        = var.public_access_read_replica
-    private_network     = var.private_network
-    require_ssl         = null
-  }
+  read_replica_name_suffix = local.read_replica_name_suffix
+  read_replicas = [
+    for array_index in range(var.read_replica_count) : {
+      name = array_index
+      tier = var.instance_size_read_replica
+      zone = format("%s-%s", data.google_client_config.google_client.region, var.zone_read_replica)
+      ip_configuration = {
+        authorized_networks = local.read_replica_authorized_networks
+        ipv4_enabled        = var.public_access_read_replica
+        private_network     = var.private_network
+        require_ssl         = null
+      }
+      database_flags  = local.db_flags_read_replica
+      disk_autoresize = var.disk_auto_resize_read_replica
+      disk_size       = var.disk_size_gb_read_replica
+      disk_type       = "PD_SSD"
+      user_labels     = var.user_labels_read_replica
+    }
+  ]
 }
 
 resource "google_project_iam_member" "cloudsql_proxy_user" {

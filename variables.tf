@@ -154,7 +154,7 @@ variable "zone_master_instance" {
 variable "zone_read_replica" {
   description = "The zone-letter to launch the ReadReplica instance(s) in. Options are \"a\" or \"b\" or \"c\" or \"d\". Defaults to \"b\" zone of the Google provider's region if nothing is specified here. See https://cloud.google.com/compute/docs/regions-zones."
   type        = string
-  default     = "b,c"
+  default     = "b"
 }
 
 variable "public_access_master_instance" {
