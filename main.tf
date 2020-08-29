@@ -45,7 +45,7 @@ module "google_mysql_db" {
   db_charset        = var.db_charset
   database_version  = var.db_version
   region            = data.google_client_config.google_client.region
-  zone              = "a"
+  zone              = var.zone_master_instance
   availability_type = var.highly_available ? "REGIONAL" : null
   tier              = var.instance_size_master_instance
   disk_size         = var.disk_size_gb_master_instance
@@ -73,7 +73,7 @@ module "google_mysql_db" {
   # read replica settings
   read_replica_size            = var.read_replica_count
   read_replica_name_suffix     = local.read_replica_name_suffix
-  read_replica_zones           = "b,c"
+  read_replica_zones           = var.zone_read_replica
   read_replica_tier            = var.instance_size_read_replica
   read_replica_disk_size       = var.disk_size_gb_read_replica
   read_replica_disk_autoresize = var.disk_auto_resize_read_replica

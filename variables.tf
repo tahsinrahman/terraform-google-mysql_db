@@ -145,6 +145,18 @@ variable "authorized_networks_read_replica" {
   default = []
 }
 
+variable "zone_master_instance" {
+  description = "The zone-letter to launch the master instance in. Options are \"a\" or \"b\" or \"c\" or \"d\". Defaults to \"a\" zone of the Google provider's region if nothing is specified here. See https://cloud.google.com/compute/docs/regions-zones."
+  type        = string
+  default     = "a"
+}
+
+variable "zone_read_replica" {
+  description = "The zone-letter to launch the ReadReplica instance(s) in. Options are \"a\" or \"b\" or \"c\" or \"d\". Defaults to \"b\" zone of the Google provider's region if nothing is specified here. See https://cloud.google.com/compute/docs/regions-zones."
+  type        = string
+  default     = "b,c"
+}
+
 variable "public_access_master_instance" {
   description = "Whether public IPv4 address should be assigned to the MySQL master instance. If set to 'false' then 'var.private_network' must be defined."
   type        = bool
