@@ -50,6 +50,7 @@ module "google_mysql_db" {
   tier              = var.instance_size_master_instance
   disk_size         = var.disk_size_gb_master_instance
   disk_autoresize   = var.disk_auto_resize_master_instance
+  disk_type         = "PD_SSD"
   create_timeout    = var.db_timeout
   update_timeout    = var.db_timeout
   delete_timeout    = var.db_timeout
@@ -76,6 +77,7 @@ module "google_mysql_db" {
   read_replica_zones           = var.zone_read_replica
   read_replica_tier            = var.instance_size_read_replica
   read_replica_disk_size       = var.disk_size_gb_read_replica
+  read_replica_disk_type       = "PD_SSD"
   read_replica_disk_autoresize = var.disk_auto_resize_read_replica
   read_replica_database_flags  = local.db_flags_read_replica
   read_replica_configuration = {
