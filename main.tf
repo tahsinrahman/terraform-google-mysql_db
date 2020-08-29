@@ -2,10 +2,6 @@ terraform {
   required_version = ">= 0.13.1" # see https://releases.hashicorp.com/terraform/
 }
 
-provider "google" {
-  version = ">= 3.13.0" # see https://github.com/terraform-providers/terraform-provider-google/releases
-}
-
 locals {
   master_instance_name_suffix = format("%s-%s", var.name_master_instance, var.name_suffix)
   read_replica_name_suffix    = format("-%s-", var.name_read_replica)
