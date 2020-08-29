@@ -9,7 +9,6 @@ provider "google" {
 
 locals {
   master_instance_name_suffix  = format("%s-%s", var.name_master_instance, var.name_suffix)
-  failover_replica_name_suffix = format("-%s", var.name_failover_replica)
   read_replica_name_suffix     = format("-%s-", var.name_read_replica)
   master_authorized_networks = [
     for authorized_network in var.authorized_networks_master_instance : {
@@ -23,15 +22,8 @@ locals {
       value = authorized_network.cidr_block
     }
   ]
-  failover_replica_authorized_networks = [
-    for authorized_network in var.authorized_networks_failover_replica : {
-      name  = authorized_network.display_name
-      value = authorized_network.cidr_block
-    }
-  ]
   db_flags_master_instance  = [for key, val in var.db_flags_master_instance : { name = key, value = val }]
   db_flags_read_replica     = [for key, val in var.db_flags_read_replica : { name = key, value = val }]
-  db_flags_failover_replica = [for key, val in var.db_flags_failover_replica : { name = key, value = val }]
 }
 
 data "google_client_config" "google_client" {}
@@ -100,34 +92,6 @@ module "google_mysql_db" {
   read_replica_ip_configuration = {
     authorized_networks = local.read_replica_authorized_networks
     ipv4_enabled        = var.public_access_read_replica
-    private_network     = var.private_network
-    require_ssl         = null
-  }
-
-  # failover replica settings
-  failover_replica                 = var.failover_enabled
-  failover_replica_name_suffix     = local.failover_replica_name_suffix
-  failover_replica_zone            = "c"
-  failover_replica_tier            = var.instance_size_failover_replica
-  failover_replica_disk_size       = var.disk_size_gb_failover_replica
-  failover_replica_disk_autoresize = var.disk_auto_resize_failover_replica
-  failover_replica_database_flags  = local.db_flags_failover_replica
-  failover_replica_configuration = {
-    connect_retry_interval    = null
-    dump_file_path            = null
-    ca_certificate            = null
-    client_certificate        = null
-    client_key                = null
-    failover_target           = true
-    master_heartbeat_period   = null
-    password                  = null
-    ssl_cipher                = null
-    username                  = null
-    verify_server_certificate = null
-  }
-  failover_replica_ip_configuration = {
-    authorized_networks = local.failover_replica_authorized_networks
-    ipv4_enabled        = var.public_access_failover_replica
     private_network     = var.private_network
     require_ssl         = null
   }

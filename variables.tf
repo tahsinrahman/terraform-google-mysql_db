@@ -43,12 +43,6 @@ variable "name_read_replica" {
   default     = "v1"
 }
 
-variable "name_failover_replica" {
-  description = "Portion of name to be generated for the \"Failover\" instance. The same name of a deleted failover instance cannot be reused for up to 7 days. See https://cloud.google.com/sql/docs/mysql/delete-instance > notes."
-  type        = string
-  default     = "v1"
-}
-
 variable "db_version" {
   description = "The MySQL database version to use. See https://cloud.google.com/sql/docs/mysql/db-versions."
   type        = string
@@ -79,12 +73,6 @@ variable "instance_size_read_replica" {
   default     = "db-f1-micro"
 }
 
-variable "instance_size_failover_replica" {
-  description = "The machine type/size of \"Failover\" instance. See https://cloud.google.com/sql/pricing#2nd-gen-pricing."
-  type        = string
-  default     = "db-f1-micro"
-}
-
 variable "disk_size_gb_master_instance" {
   description = "Disk size for the master instance in Giga Bytes."
   type        = string
@@ -97,12 +85,6 @@ variable "disk_size_gb_read_replica" {
   default     = 10
 }
 
-variable "disk_size_gb_failover_replica" {
-  description = "Disk size for the failover replica instance in Giga Bytes."
-  type        = string
-  default     = 10
-}
-
 variable "disk_auto_resize_master_instance" {
   description = "Whether to increase disk storage size of the master instance automatically. Increased storage size is permanent. Google charges by storage size whether that storage size is utilized or not. Recommended to set to \"true\" for production workloads."
   type        = bool
@@ -111,12 +93,6 @@ variable "disk_auto_resize_master_instance" {
 
 variable "disk_auto_resize_read_replica" {
   description = "Whether to increase disk storage size of the read replica instance(s) automatically. Increased storage size is permanent. Google charges by storage size whether that storage size is utilized or not. Recommended to set to \"true\" for production workloads."
-  type        = bool
-  default     = false
-}
-
-variable "disk_auto_resize_failover_replica" {
-  description = "Whether to increase disk storage size of the failover replica instance automatically. Increased storage size is permanent. Google charges by storage size whether that storage size is utilized or not. Recommended to set to \"true\" for production workloads."
   type        = bool
   default     = false
 }
@@ -145,12 +121,6 @@ variable "read_replica_count" {
   default     = 0
 }
 
-variable "failover_enabled" {
-  description = "Specify whether failover replicas should be enabled for the MySQL instance. Value of 'true' requires 'var.pit_recovery_enabled' to be 'true'."
-  type        = bool
-  default     = false
-}
-
 variable "authorized_networks_master_instance" {
   description = "External networks that can access the MySQL master instance through HTTPS."
   type = list(object({
@@ -162,15 +132,6 @@ variable "authorized_networks_master_instance" {
 
 variable "authorized_networks_read_replica" {
   description = "External networks that can access the MySQL ReadReplica instance(s) through HTTPS."
-  type = list(object({
-    display_name = string
-    cidr_block   = string
-  }))
-  default = []
-}
-
-variable "authorized_networks_failover_replica" {
-  description = "External networks that can access the MySQL FailoverReplica instance through HTTPS."
   type = list(object({
     display_name = string
     cidr_block   = string
@@ -190,12 +151,6 @@ variable "public_access_read_replica" {
   default     = false
 }
 
-variable "public_access_failover_replica" {
-  description = "Whether public IPv4 address should be assigned to the MySQL failover replica instance. If set to 'false' then 'var.private_network' must be defined."
-  type        = bool
-  default     = false
-}
-
 variable "db_flags_master_instance" {
   description = "The database flags applied to the master instance. See https://cloud.google.com/sql/docs/mysql/flags"
   type        = map(string)
@@ -204,12 +159,6 @@ variable "db_flags_master_instance" {
 
 variable "db_flags_read_replica" {
   description = "The database flags applied to the read replica instances. See https://cloud.google.com/sql/docs/mysql/flags"
-  type        = map(string)
-  default     = {}
-}
-
-variable "db_flags_failover_replica" {
-  description = "The database flags applied to the failover replica instance. See https://cloud.google.com/sql/docs/mysql/flags"
   type        = map(string)
   default     = {}
 }
@@ -227,7 +176,7 @@ variable "db_timeout" {
 }
 
 variable "sql_proxy_user_groups" {
-  description = "List of usergroup emails that maybe allowed to connect with the database using CloudSQL Proxy. Connecting via CLoudSQL proxy from remote/localhost requires \"var.public_access_*\" to be set to \"true\" (for whichever of master/replica/failover instances you want to connect to). See https://cloud.google.com/sql/docs/mysql/sql-proxy#what_the_proxy_provides"
+  description = "List of usergroup emails that maybe allowed to connect with the database using CloudSQL Proxy. Connecting via CLoudSQL proxy from remote/localhost requires \"var.public_access_*\" to be set to \"true\" (for whichever of master/replica instances you want to connect to). See https://cloud.google.com/sql/docs/mysql/sql-proxy#what_the_proxy_provides"
   type        = list(string)
   default     = []
 }

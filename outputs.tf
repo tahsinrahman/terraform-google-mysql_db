@@ -77,37 +77,6 @@ output "read_replica_instance_names" {
   description = "The instance names for the read replica instances"
 }
 
-// Failover Replicas
-output "failover-replica_instance_first_ip_address" {
-  value       = module.google_mysql_db.failover-replica_instance_first_ip_address
-  description = "The first IPv4 address of the addresses assigned for the failover-replica instance"
-}
-
-output "failover-replica_instance_connection_name" {
-  value       = module.google_mysql_db.failover-replica_instance_connection_name
-  description = "The connection name of the failover-replica instance to be used in connection strings"
-}
-
-output "failover-replica_instance_self_link" {
-  value       = module.google_mysql_db.failover-replica_instance_self_link
-  description = "The URI of the failover-replica instance"
-}
-
-output "failover-replica_instance_server_ca_cert" {
-  value       = module.google_mysql_db.failover-replica_instance_server_ca_cert
-  description = "The CA certificate information used to connect to the failover-replica instance via SSL"
-}
-
-output "failover-replica_instance_service_account_email_address" {
-  value       = module.google_mysql_db.failover-replica_instance_service_account_email_address
-  description = "The service account email addresses assigned to the failover-replica instance"
-}
-
-output "failover-replica_instance_name" {
-  value       = module.google_mysql_db.failover-replica_instance_name
-  description = "The instance name for the failover replica instance"
-}
-
 output "user_name" {
   description = "The name of the database user"
   value       = var.user_name

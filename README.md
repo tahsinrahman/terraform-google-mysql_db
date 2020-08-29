@@ -17,16 +17,6 @@ module "mysql_db" {
       cidr_block   = "192.168.2.0/28"
     }
   ]
-  authorized_networks_failover_replica = [
-    {
-      display_name = "Corporate IPs"
-      cidr_block   = "192.168.1.0/30"
-    },
-    {
-      display_name = "South Gate IPs"
-      cidr_block   = "192.169.3.0/24"
-    }
-  ]
   .....
   .....
 }
