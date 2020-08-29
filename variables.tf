@@ -103,6 +103,12 @@ variable "backup_enabled" {
   default     = false
 }
 
+variable "backup_location" {
+  description = "A string value representing REGIONAL or MULTI-REGIONAL location for storing backups. Defaults to the Google provider's region if nothing is specified here. See https://cloud.google.com/sql/docs/mysql/locations for REGIONAL / MULTI-REGIONAL values."
+  type        = string
+  default     = ""
+}
+
 variable "pit_recovery_enabled" {
   description = "Specify whether Point-In-Time recoevry should be enabled for the MySQL instance. It uses the \"binary log\" feature of CloudSQL. Value of 'true' requires 'var.backup_enabled' to be 'true'."
   type        = bool

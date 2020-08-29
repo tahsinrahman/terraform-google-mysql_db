@@ -24,6 +24,7 @@ locals {
   ]
   db_flags_master_instance = [for key, val in var.db_flags_master_instance : { name = key, value = val }]
   db_flags_read_replica    = [for key, val in var.db_flags_read_replica : { name = key, value = val }]
+  backup_location          = var.backup_location == "" ? data.google_client_config.google_client.region : var.backup_location
 }
 
 data "google_client_config" "google_client" {}
@@ -66,6 +67,7 @@ module "google_mysql_db" {
     enabled            = var.backup_enabled
     binary_log_enabled = var.pit_recovery_enabled
     start_time         = "00:05"
+    location           = local.backup_location
   }
 
   # read replica settings
