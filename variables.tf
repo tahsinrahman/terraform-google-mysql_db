@@ -110,7 +110,7 @@ variable "pit_recovery_enabled" {
 }
 
 variable "highly_available" {
-  description = "Whether the MySQL instance should be highly available (REGIONAL) or single zone. Value of 'true' requires 'var.pit_recovery_enabled' to be 'true'."
+  description = "Whether the MySQL instance should be highly available (REGIONAL) or single zone. Highly Available (HA) instances will automatically failover to another zone within the region if there is an outage of the primary zone. HA instances are recommended for production use-cases and increase cost. Value of 'true' requires 'var.pit_recovery_enabled' to be 'true'."
   type        = bool
   default     = false
 }
