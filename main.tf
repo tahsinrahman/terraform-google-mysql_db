@@ -32,7 +32,7 @@ resource "google_project_service" "cloudsql_api" {
 module "google_mysql_db" {
   source            = "GoogleCloudPlatform/sql-db/google//modules/mysql"
   version           = "4.0.0"
-  depends_on        = [google_project_service.cloudsql_api.id]
+  depends_on        = [google_project_service.cloudsql_api]
   project_id        = data.google_client_config.google_client.project
   name              = format("mysql-%s", local.master_instance_name_suffix)
   db_name           = var.db_name
