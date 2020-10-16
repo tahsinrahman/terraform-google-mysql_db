@@ -24,6 +24,11 @@ locals {
 
 data "google_client_config" "google_client" {}
 
+resource "google_project_service" "compute_api" {
+  service            = "compute.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "google_project_service" "cloudsql_api" {
   service            = "sqladmin.googleapis.com"
   disable_on_destroy = false
@@ -32,7 +37,7 @@ resource "google_project_service" "cloudsql_api" {
 module "google_mysql_db" {
   source            = "GoogleCloudPlatform/sql-db/google//modules/mysql"
   version           = "4.0.0"
-  depends_on        = [google_project_service.cloudsql_api]
+  depends_on        = [google_project_service.compute_api, google_project_service.cloudsql_api]
   project_id        = data.google_client_config.google_client.project
   name              = format("mysql-%s", local.master_instance_name_suffix)
   db_name           = var.db_name
@@ -93,5 +98,5 @@ resource "google_project_iam_member" "cloudsql_proxy_user" {
   count      = length(var.sql_proxy_user_groups)
   role       = "roles/cloudsql.client" # see https://cloud.google.com/sql/docs/mysql/quickstart-proxy-test#before-you-begin
   member     = "group:${var.sql_proxy_user_groups[count.index]}"
-  depends_on = [google_project_service.cloudsql_api]
+  depends_on = [google_project_service.compute_api, google_project_service.cloudsql_api]
 }
